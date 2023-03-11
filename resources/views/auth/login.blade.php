@@ -4,7 +4,6 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
-        <h1 class="text-white text-center">this is login form testtttttt</h1>
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
