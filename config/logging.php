@@ -53,8 +53,15 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single','daily'],
             'ignore_exceptions' => false,
+        ],
+        'daily' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/laravel-' . strtolower(date('D')) . '-' . date('Y-m-d') . '.log'),
+            'level' => 'debug',
+            'days' => 14,
+            'formatter' => '\Monolog\Formatter\HtmlFormatter',
         ],
 
         'single' => [

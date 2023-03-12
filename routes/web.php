@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
+
 
 
 /*
@@ -15,6 +17,32 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+Route::get('/logs', function () {
+    $logFile = storage_path('logs/laravel-' . strtolower(date('D')) . '-' . date('Y-m-d') . '.log');
+
+    if (File::exists($logFile)) {
+        $logs = File::get($logFile);
+
+        preg_match_all('/\[(.*)\].*\[(.*)\]: (.*)/', $logs, $matches, PREG_SET_ORDER);
+
+        $logs = array_map(function ($log) {
+            $time = \Carbon\Carbon::createFromTimestamp($log[1])->format('Y-m-d H:i:s.v');
+            return [
+                'time' => $time,
+                'level' => $log[2],
+                'message' => $log[3]
+            ];
+        }
+            , $matches);
+    } else {
+        $logs = [];
+    }
+
+    return view('logs/logs', ['logs' => $logs]);
+});
+
 
 Route::get('/', function () {
     return view('auth/login');
