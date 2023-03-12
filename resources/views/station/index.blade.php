@@ -45,29 +45,35 @@
             @include('layouts.navigation')
     <h1 class="text-white">{{_('Register new Station')}}</h1>
     <div class="form-wrapper">
-        <form class="add_form">
+        <form class="add_form" method="POST" action="{{ route('station.store') }}">
+            @csrf
             <div class="cols-wrapper">
                 {{-- left --}}
                 <div class="cols left">
                     <div class="form-group">
-                        <label for="StationName">StationName:</label>
-                        <input type="text" id="StationName" name="StationName">
+                        <x-input-label for="name" :value="__('Station Name:')" />
+                        <x-text-input class="text-input" type="text" :value="old('name')" id="name" name="name" />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div class="form-group">
-                        <label for="x asis">X axis:</label>
-                        <input type="text" id="x asis" name="x">
+                        <x-input-label for="x_axis" :value="__('X axis:')" />
+                        <x-text-input class="text-input" type="number" :value="old('x_axis')" id="x_axis" name="x_axis" />
+                        <x-input-error :messages="$errors->get('x_axis')" class="mt-2" />
                     </div>
                     <div class="form-group">
-                        <label for="yaxis">Y axis:</label>
-                        <input type="text" id="yaxis" name="y">
+                        <x-input-label for="y_axis" :value="__('Y axis:')" />
+                        <x-text-input class="text-input" type="number" :value="old('y_axis')" id="y_axis" name="y_axis" />
+                        <x-input-error :messages="$errors->get('y_axis')" class="mt-2" />
                     </div>
                     <div class="form-group">
-                        <label for="zaxis">Z axis:</label>
-                        <input type="text" id="zaxis" name="z">
+                        <x-input-label for="z_axis" :value="__('Z axis:')" />
+                        <x-text-input class="text-input" type="number" :value="old('z_axis')" id="z_axis" name="z_axis" />
+                        <x-input-error :messages="$errors->get('z_axis')" class="mt-2" />
                     </div>
                     <div class="form-group">
-                        <label for="Latitude">Latitude:</label>
-                        <input type="text" id="Latitude" name="Latitude">
+                        <x-input-label for="latitude" :value="__('Latitude:')" />
+                        <x-text-input class="text-input" type="number" :value="old('latitude')" id="latitude" name="latitude" />
+                        <x-input-error :messages="$errors->get('latitude')" class="mt-2" />
                     </div>
                     
                 </div>
@@ -75,73 +81,88 @@
                 
                 <div class="cols center">
                                 <div class="form-group">
-                                    <label for="Height">Height:</label>
-                                    <input type="text" id="Height" name="Height">
+                                    <x-input-label for="height" :value="__('Height:')" />
+                                    <x-text-input class="text-input" type="number" :value="old('height')" id="height" name="height" />
+                                    <x-input-error :messages="$errors->get('height')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="ReceiverName">ReceiverName:</label>
-                                    <input type="text" id="ReceiverName" name="ReceiverName">
+                                    <x-input-label for="receiver_name" :value="__('Receiver Name:')" />
+                                    <x-text-input class="text-input" type="text" :value="old('receiver_name')" id="receiver_name" name="receiver_name" />
+                                    <x-input-error :messages="$errors->get('receiver_name')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="ReceiverSatelliteSystem">ReceiverSatelliteSystem:</label>
-                                    <input type="text" id="ReceiverSatelliteSystem" name="ReceiverSatelliteSystem">
+                                    <x-input-label for="receiver_satellite_system" :value="__('Receiver Satellite System:')" />
+                                    <x-text-input class="text-input" type="text" :value="old('receiver_satellite_system')" id="receiver_satellite_system" name="receiver_satellite_system" />
+                                    <x-input-error :messages="$errors->get('receiver_satellite_system')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="ReceiverSerialNumber">ReceiverSerialNumber:</label>
-                                    <input type="text" id="ReceiverSerialNumber" name="ReceiverSerialNumber">
+                                    <x-input-label for="receiver_serial_number" :value="__('Receiver Serial Number:')" />
+                                    <x-text-input class="text-input" type="text" :value="old('receiver_serial_number')" id="receiver_serial_number" name="receiver_serial_number" />
+                                    <x-input-error :messages="$errors->get('receiver_serial_number')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="ReceiverFirmwareVersion">ReceiverFirmwareVersion:</label>
-                                    <input type="text" id="ReceiverFirmwareVersion" name="ReceiverFirmwareVersion
-">
+                                    <x-input-label for="receiver_firmware_version" :value="__('Receiver Firmware Version:')" />
+                                    <x-text-input class="text-input" type="text" :value="old('receiver_firmware_version')" id="receiver_firmware_version" name="receiver_firmware_version" />
+                                    <x-input-error :messages="$errors->get('receiver_firmware_version')" class="mt-2" />
+
                                 </div>
                                 
                 </div>
                 {{-- center left --}}
                 <div class="cols right">
                                      <div class="form-group">
-                                    <label for="ReceiverDateInstalled">ReceiverDateInstalled:</label>
-                                    <input type="text" id="ReceiverDateInstalled" name="ReceiverDateInstalled">
+                                    <x-input-label for="receiver_date_installed" :value="__('Receiver Date Installed:')" />
+                                    <x-text-input class="text-input" type="date" id="receiver_date_installed" name="receiver_date_installed" :value="old('receiver_date_installed')" />
+                                    <x-input-error :messages="$errors->get('receiver_date_installed')" class="mt-2" />
                                 </div>
                                      <div class="form-group">
-                                <label for="AntennaName">AntennaName:</label>
-                                <input type="text" id="AntennaName" name="AntennaName">
+                                <x-input-label for="antenna_name" :value="__('Antenna Name:')" />
+                                <x-text-input type="text" :value="old('antenna_name')" id="antenna_name" name="antenna_name" />
+                                <x-input-error :messages="$errors->get('antenna_name')" class="mt-2" />
                             </div>
                             <div class="form-group">
-                                <label for="AntennaRadome">AntennaRadome:</label>
-                                <input type="text" id="AntennaRadome" name="AntennaRadome">
+                                <x-input-label for="antenna_radome" :value="__('Antenna Radome:')" />
+                                <x-text-input type="text" :value="old('antenna_radome')" id="antenna_radome" name="antenna_radome" />
+                                <x-input-error :messages="$errors->get('antenna_radome')" class="mt-2" />
                             </div>
                             <div class="form-group">
-                                    <label for="AntennaSerialNumber">AntennaSerialNumber:</label>
-                                    <input type="text" id="AntennaSerialNumber" name="AntennaSerialNumber">
+                                    <x-input-label for="antenna_serial_number" :value="__('Antenna Serial Number:')" />
+                                    <x-text-input type="text" :value="old('antenna_serial_number')" id="antenna_serial_number" name="antenna_serial_number" />
+                                    <x-input-error :messages="$errors->get('antenna_serial_number')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="AntennaARP">AntennaARP:</label>
-                                    <input type="text" id="AntennaARP" name="AntennaARP">
+                                    <x-input-label for="antenna_arp" :value="__('Antenna ARP:')" />
+                                    <x-text-input type="text" :value="old('antenna_arp')" id="antenna_arp" name="antenna_arp" />
+                                    <x-input-error :messages="$errors->get('antenna_arp')" class="mt-2" />
                                 </div>
                             
                 </div>
                 {{-- center right --}}
                 <div class="col-last-right">
                     <div class="form-group">
-                                    <label for="AntennaMarkerNorth">AntennaMarkerNorth:</label>
-                                    <input type="text" id="AntennaMarkerNorth" name="AntennaMarkerNorth">
+                                    <x-input-label for="antenna_marker_north" :value="__('Antenna Marker North:')" />
+                                    <x-text-input type="number" :value="old('antenna_marker_north')" id="antenna_marker_north" name="antenna_marker_north" />
+                                    <x-input-error :messages="$errors->get('antenna_marker_north')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="AntennaMarkerEast">AntennaMarkerEast:</label>
-                                    <input type="text" id="AntennaMarkerEast" name="AntennaMarkerEast">
+                                    <x-input-label for="antenna_marker_east" :value="__('Antenna Marker East:')" />
+                                    <x-text-input type="number" :value="old('antenna_marker_east')" id="antenna_marker_east" name="antenna_marker_east" />
+                                    <x-input-error :messages="$errors->get('antenna_marker_east')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="AntennaDateInstalled">AntennaDateInstalled:</label>
-                                    <input type="text" id="AntennaDateInstalled" name="AntennaDateInstalled">
+                                    <x-input-label for="antenna_date_installed" :value="__('Antenna Date Installed:')" />
+                                    <x-text-input type="date" id="antenna_date_installed" name="antenna_date_installed" :value="old('antenna_date_installed')" />
+                                    <x-input-error :messages="$errors->get('antenna_date_installed')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="ClockType">ClockType:</label>
-                                    <input type="text" id="ClockType" name="ClockType">
+                                    <x-input-label for="clock_type" :value="__('ClockType:')" />
+                                    <x-text-input type="text" :value="old('clock_type')" id="clock_type" name="clock_type" />
+                                    <x-input-error :messages="$errors->get('clock_type')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="ClockInputFrequency">ClockInputFrequency:</label>
-                                    <input type="text" id="ClockInputFrequency" name="ClockInputFrequency">
+                                    <x-input-label for="clock_input_frequency" :value="__('Clock Input Frequency:')" />
+                                    <x-text-input type="number" :value="old('clock_input_frequency')" id="clock_input_frequency" name="clock_input_frequency" />
+                                    <x-input-error :messages="$errors->get('clock_input_frequency')" class="mt-2" />
                                 </div>
 
                 </div>
@@ -149,31 +170,31 @@
                 {{-- colum submit button --}}
                 <div class="cols-left-center">
                     <div class="form-group">
-                        <label for="remark">Longitude:</label>
-                        <input type="text" name="longitude" id="remark" name="remark">
+                        <x-input-label for="longitude" :value="__('Longitude:')" />
+                        <x-text-input type="number" :value="old('longitude')" id="longitude" name="longitude" />
+                        <x-input-error :messages="$errors->get('longitude')" class="mt-2" />
                 </div>
                 <div class="custom-form-groups">
-                        <label for="remark">ReceiverElevationCutoff:</label>
-                        <input type="text" id="ReceiverElevationCutoff" name="ReceiverElevationCutoff">
+                        <x-input-label for="receiver_elevation_cutoff" :value="__('Receiver Elevation Cutoff:')" />
+                        <x-text-input type="number" :value="old('receiver_elevation_cutoff')" id="receiver_elevation_cutoff" name="receiver_elevation_cutoff" />
+                        <x-input-error :messages="$errors->get('receiver_elevation_cutoff')" class="mt-2" />
                 </div>
                 <div class="custom-form-groups">
-                        <label for="AntennaMarkerUp">AntennaMarkerUp:</label>
-                        <input type="text" id="AntennaMarkerUp" name="AntennaMarkerUp">
+                        <x-input-label for="antenna_marker_up" :value="__('Antenna MarkerUp:')" />
+                        <x-text-input type="number" :value="old('antenna_marker_up')" id="antenna_marker_up" name="antenna_marker_up" />
+                        <x-input-error :messages="$errors->get('antenna_marker_up')" class="mt-2" />
                 </div>
                 <div class="custom-form-groups">
-                        <label for="ClockEffectiveDates">ClockEffectiveDates:</label>
-                        <input type="text" id="ClockEffectiveDates" name="ClockEffectiveDates">
+                        <x-input-label for="clock_effective_dates" :value="__('Clock Effective Dates:')" />
+                        <x-text-input type="date" id="clock_effective_dates" name="clock_effective_dates" :value="old('clock_effective_dates')" />
+                        <x-input-error :messages="$errors->get('clock_effective_dates')" class="mt-2" />
                 </div>
                 <div class="">
-                        <label for="samecolor" style="color:#111827;">clearfix</label>
-                        <button type="submit">Submit</button>
+                        <x-input-label for="samecolor" style="color:#111827;" :value="__('submit')" />
+                        <button type="submit" name="submit">Submit</button>
                 </div>
                 </div>
             </div>
-        
-        
-        
-
     </form>
 
     </div>
