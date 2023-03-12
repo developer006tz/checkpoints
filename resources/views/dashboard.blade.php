@@ -1,9 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <div class="button-wrapper float-right">
+        <a class="add-btn  bg-white outline-dotted outline-2 outline-offset-2" href="{{route('station.index')}}">{{ __('add') }}</a>
+        
+        <a class="add-btn ml-2  bg-white outline-dotted outline-2 outline-offset-2" href="{{route('profile.edit')}}">{{ __('manage') }}</a>
+    </div>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
