@@ -3,7 +3,8 @@
 /public/build
 /public/hot
 /config/database.php
-/public/storage
+/public/storage/media
+/public/storage/media/*.key
 /storage/*.key
 /vendor
 .env
