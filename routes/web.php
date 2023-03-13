@@ -57,8 +57,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/station', [StationController::class, 'index'])->name('station.index');
-    // Route::post('/station', [StationController::class,'store'])->name('station.store');
     Route::post('station', [StationController::class, 'store'])->name('station.store');
+    Route::get('/station/excel', [StationController::class, 'excel'])->name('station.excel');
+    Route::post('/station/excel', [StationController::class, 'uploadByExcel'])->name('station.uploadByExcel');
+    // Route::get('/station/{station}', [StationController::class, 'show'])->name('station.show');
+    Route::get('/station/getsample/sample_station_', [StationController::class, 'getsample'])->name('station.getsample');
+    //display()
+    Route::get('/station/display', [StationController::class, 'display'])->name('station.display');
+
+
 
 });
 

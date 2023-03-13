@@ -37,6 +37,10 @@
             border: 1px solid rgb(0, 255, 94);
             width: 90%;
         }
+
+        .add-btn.excel{
+            background: rgb(183, 245, 206);
+        }
     </style>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
