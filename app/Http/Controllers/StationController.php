@@ -265,7 +265,7 @@ class StationController extends Controller
     public function getsample()
     {
         $file_name = request()->segment(3) . '.xlsx';
-        return response()->download('storage\\uploads\\samples\\' . $file_name, $file_name, array('Content-Type: application/excel'));
+        return response()->download('storage/uploads/samples/' . $file_name, $file_name, array('Content-Type: application/excel'));
     }
 
     public function display()
