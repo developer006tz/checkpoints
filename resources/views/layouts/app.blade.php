@@ -68,12 +68,12 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-		subdomains: 'abcd',
-		maxZoom: 19
-	});
-	CartoDB_DarkMatter.addTo(map);
+// var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+// 		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+// 		subdomains: 'abcd',
+// 		maxZoom: 19
+// 	});
+// 	CartoDB_DarkMatter.addTo(map);
 
 	// Google Map Layer
 
@@ -93,7 +93,7 @@ var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all
        
 
         var satelliteIcon = L.icon({
-                iconUrl: 'https://img.icons8.com/emoji/48/null/green-circle-emoji.png',
+                iconUrl: 'https://img.icons8.com/fluency/48/null/approval.png',
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                 iconSize: [13, 15],
                 iconAnchor: [12, 41],
