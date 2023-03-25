@@ -9,20 +9,16 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> 
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
     </head>
     <style>
         .add-btn {
@@ -43,6 +39,11 @@
         }
     </style>
     <body class="font-sans antialiased">
+        @php
+$stations = App\Models\Station::all();
+// $stations = json_encode($stations);
+
+    @endphp
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
@@ -61,44 +62,53 @@
             </main>
         </div>
         <script>
-             var map = L.map('map').setView([0, 0], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+            var map = L.map('map').setView([0, 0], 2);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+		subdomains: 'abcd',
+		maxZoom: 19
+	});
+	CartoDB_DarkMatter.addTo(map);
+
+	// Google Map Layer
+
+	googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+		maxZoom: 20,
+		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+	});
+	googleStreets.addTo(map);
+
+    // // Satelite Layer
+	// googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+	// 	maxZoom: 20,
+	// 	subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+	// });
+	// googleSat.addTo(map);
 
        
 
         var satelliteIcon = L.icon({
-                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                iconUrl: 'https://img.icons8.com/emoji/48/null/green-circle-emoji.png',
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [25, 41],
+                iconSize: [13, 15],
                 iconAnchor: [12, 41],
                 popupAnchor: [1, -34],
-                shadowSize: [41, 41]
+                shadowSize: [10, 10]
             });
 
-        const coordinates = [
-            { lat: 1.3733, lng: 32.2903, name: "Uganda" },
-            { lat: -1.2921, lng: 36.8219, name: "Kenya" },
-            { lat: -6.3690, lng: 34.8888, name: "Tanzania" },
-            { lat: 26.8206, lng: 30.8025, name: "Egypt" },
-            { lat: -30.5595, lng: 22.9375, name: "South Africa" }
-        ];
+            @foreach($stations as $station)
+            var marker = L.marker([{{ $station->latitude }}, {{ $station->longitude }}],{icon: satelliteIcon}).addTo(map);
+            marker.bindPopup("<div style='color: green;padding:3px;' class='bg-green-500 text text-success text-center'>{{ $station->name }}</div><div class='text-success'>Receiver: {{ $station->receiver_name }}</div><div class='text-success'>RSS: {{ $station->receiver_satellite_system }}</div><div class='text-success'>Antena: {{ $station->antenna_name }}</div><div class='text-success'>Clock: {{ $station->clock_type }}</div>");
 
-        var marker = L.marker([0.347596, 32.58252], { icon: satelliteIcon }).addTo(map);
-            marker.bindPopup("<b>Uganda</b><br>Coordinates: 0.347596, 32.58252").openPopup();
+            @endforeach
 
-            var marker2 = L.marker([-1.292066, 36.821946], { icon: satelliteIcon }).addTo(map);
-            marker2.bindPopup("<b>Kenya</b><br>Coordinates: -1.292066, 36.821946").openPopup();
-
-            var marker3 = L.marker([-6.369028, 34.888822], { icon: satelliteIcon }).addTo(map);
-            marker3.bindPopup("<b>Tanzania</b><br>Coordinates: -6.369028, 34.888822").openPopup();
-
-            var marker4 = L.marker([26.820553, 30.802498], { icon: satelliteIcon }).addTo(map);
-            marker4.bindPopup("<b>Egypt</b><br>Coordinates: 26.820553, 30.802498").openPopup();
-
-            var marker5 = L.marker([-30.559482, 22.937506], { icon: satelliteIcon }).addTo(map);
-            marker5.bindPopup("<b>South Africa</b><br>Coordinates: -30.559482, 22.937506").openPopup();
+       
         </script>
+        <a target="_blank" href="https://icons8.com/icon/FkQHNSmqWQWH/green-circle">Green Circle icon by Icons8</a>
     </body>
 </html>
